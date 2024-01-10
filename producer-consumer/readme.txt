@@ -1,5 +1,1 @@
-Korišćenjem programskog jezika C napisati Linux progam koji sadrži bafer u koji se mogu smestiti dva
-integer broja. Zasebna nit periodično generiše dva broja (u opsegu od 1 do 10) i upisuje ih u ovaj bafer.
-Kada se u baferu nađe novi par brojeva glavna nit (main funkcija) treba da odredi zbir ta dva broja i
-odštampa ga na standardnom izlazu. Vremenski razmak između dva uzastopna upisa u bafer je slučajna
-vrednost između 0 i 5 sekundi.
+Using the C programming language, write a Linux program that contains a buffer capable of holding two integer numbers. A separate thread periodically generates two numbers (within the range of 1 to 10) and writes them into this buffer. When a new pair of numbers is found in the buffer, the main thread (main function) should determine their sum and print it to the standard output. The time interval between two consecutive writes to the buffer is a random value between 0 and 5 seconds.
