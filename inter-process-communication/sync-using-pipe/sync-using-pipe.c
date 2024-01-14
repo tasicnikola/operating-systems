@@ -1,6 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <unistd.h>
+#include <sys/types.h>
+#include <sys/wait.h>
+#include <ctype.h>
 
 int main() {
     int pd1[2];
@@ -18,12 +22,14 @@ int main() {
         return -1;
     }
 
-    if(pid1 = fork() != 0) {
+    if((pid1 = fork()) != 0) {
         close(pd1[0]);
         close(pd2[0]);
         close(pd2[1]);
+        printf("Waiting for input: \n");
+
         do {
-            gets(line);
+            fgets(line, sizeof(line), stdin);
 
             write(pd1[1], line, strlen(line)+1);
             printf("First process sent to pipe1: %s\n", line);
@@ -34,8 +40,9 @@ int main() {
         wait(NULL);
         close(pd1[1]);
         printf("First process exits! \n");
+
         return 0;
-    } else if(pid2 = fork() != 0) {
+    } else if((pid2 = fork()) != 0) {
         printf("Second process created!\n");
         char line1[80];
         close(pd1[1]);
@@ -55,6 +62,7 @@ int main() {
         close(pd1[0]);
         close(pd2[1]);
         printf("Second process exits! \n");
+
         exit(0);
     } else {
         char line2[80];
@@ -79,6 +87,7 @@ int main() {
         printf("Third process recived END!\n");
         close(pd2[0]);
         printf("Third process exits! \n");
+
         exit(0);
     }
 }
