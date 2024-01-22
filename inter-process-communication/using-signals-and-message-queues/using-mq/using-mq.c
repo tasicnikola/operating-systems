@@ -5,6 +5,7 @@
 #include <sys/ipc.h>
 #include <sys/msg.h>
 #include <string.h>
+#include <sys/wait.h>
 
 #define MSG_QUEUE 10301
 #define MAX_MSG 255
@@ -12,7 +13,7 @@
 struct message {
     long type;
     char text[MAX_MSG];
-}
+};
 
 int main() {
     int pid;
@@ -32,7 +33,7 @@ int main() {
     }
 
     if(pid == 0) {
-        if(execl("using-mq-parent", "using-mq-parent", "half1.txt", "1", NULL) < 0) {
+        if(execl("./using-mq-parent", "using-mq-parent", "half1.txt", "1", NULL) < 0) {
             printf("Error while loading file!\n");
         }
 
@@ -46,7 +47,7 @@ int main() {
         exit(1);
     }
     if(pid == 0) {
-        if(execl("using-mq-parent", "using-mq-parent", "half2.txt", "2", NULL) < 0) {
+        if(execl("./using-mq-parent", "using-mq-parent", "half2.txt", "2", NULL) < 0) {
             printf("Error while loading file!\n");
         }
 
@@ -85,7 +86,7 @@ int main() {
     }
     while(!feof(f));
 
-    fclose(f):
+    fclose(f);
 
     strcpy(buffer.text, "END");
     buffer.type = 1;
